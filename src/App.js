@@ -14,6 +14,9 @@ function App() {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/list">List of Products</Nav.Link>
           <Nav.Link href="/create">Add Product</Nav.Link>
+
+          <Nav.Link href="/listcountry">List of Country</Nav.Link>
+          <Nav.Link href="/createcountry">Add Country</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

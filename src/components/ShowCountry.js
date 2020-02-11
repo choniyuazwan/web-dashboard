@@ -5,17 +5,19 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
-function Show(props) {
-  console.log('show props', props);
+function ShowCountry(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = "http://localhost:3000/api/v1/products/" + props.match.params.id;
+  const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country/' + props.match.params.id;
+  const options = {
+    headers: {'api-client-access-token': 'lawgoindonesia'}
+  };
 
   useEffect(() => {
     setShowLoading(false);
     const fetchData = async () => {
-      const result = await axios(apiUrl);
-      setData(result.data);
+      const result = await axios(apiUrl, options);
+      setData(result.data.data);
       setShowLoading(false);
     };
 
@@ -24,7 +26,7 @@ function Show(props) {
 
   const editProduct = (id) => {
     props.history.push({
-      pathname: '/edit/' + id
+      pathname: '/editcountry/' + id
     });
   };
 
@@ -34,7 +36,7 @@ function Show(props) {
     axios.delete(apiUrl, product)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/list')
+        props.history.push('/listcountry')
       }).catch((error) => setShowLoading(false));
   };
 
@@ -44,16 +46,16 @@ function Show(props) {
         <span className="sr-only">Loading...</span>
       </Spinner> }
       <Jumbotron>
-        <h1>{data.prod_name}</h1>
+        <h1>{data.name}</h1>
         <p>{data.prod_desc}</p>
         <h2>Price: ${data.prod_price}</h2>
         <p>
-          <Button type="button" variant="primary" onClick={() => { editProduct(data._id) }}>Edit</Button>&nbsp;
-          <Button type="button" variant="danger" onClick={() => { deleteProduct(data._id) }}>Delete</Button>
+          <Button type="button" variant="primary" onClick={() => { editProduct(data.id) }}>Edit</Button>&nbsp;
+          {/*<Button type="button" variant="danger" onClick={() => { deleteProduct(data.id) }}>Delete</Button>*/}
         </p>
       </Jumbotron>
     </div>
   );
 }
 
-export default withRouter(Show);
+export default withRouter(ShowCountry);

@@ -5,6 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { withRouter } from 'react-router-dom';
 
 function List(props) {
+  console.log('list props', props);
   const [data, setData] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/api/v1/products";

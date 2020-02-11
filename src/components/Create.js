@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
 function Create(props) {
+  console.log('create props', props);
   const [product, setProduct] = useState({ _id: '', prod_name: '', prod_desc: '', prod_price: 0 });
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/api/v1/products";
@@ -29,11 +30,11 @@ function Create(props) {
 
   return (
     <div>
-      {showLoading && 
+      {showLoading &&
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
-        </Spinner> 
-      } 
+        </Spinner>
+      }
       <Jumbotron>
         <Form onSubmit={saveProduct}>
           <Form.Group>

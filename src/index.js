@@ -9,6 +9,11 @@ import Edit from './components/Edit';
 import Create from './components/Create';
 import Show from './components/Show';
 
+import ListCountry from './components/ListCountry';
+import ShowCountry from './components/ShowCountry';
+import CreateCountry from './components/CreateCountry';
+import EditCountry from './components/EditCountry';
+
 ReactDOM.render(
     <Router>
         <div>
@@ -17,6 +22,11 @@ ReactDOM.render(
             <Route render ={()=> < Edit />} path="/edit/:id" />
             <Route render ={()=> < Create />} path="/create" />
             <Route render ={()=> < Show />} path="/show/:id" />
+
+          <Route render ={()=> < ListCountry />} path="/listcountry" />
+          <Route render ={()=> < EditCountry />} path="/editcountry/:id" />
+          <Route render ={()=> < CreateCountry />} path="/createcountry" />
+          <Route render ={()=> < ShowCountry />} path="/showcountry/:id" />
         </div>
     </Router>, document.getElementById('root'));
 

@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
 function Edit(props) {
+  console.log('edit props', props);
   const [product, setProduct] = useState({ _id: '', prod_name: '', prod_desc: '', prod_price: 0 });
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/api/v1/products/" + props.match.params.id;
@@ -41,11 +42,11 @@ function Edit(props) {
 
   return (
     <div>
-      {showLoading && 
+      {showLoading &&
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
-        </Spinner> 
-      } 
+        </Spinner>
+      }
       <Jumbotron>
         <Form onSubmit={updateProduct}>
           <Form.Group>
