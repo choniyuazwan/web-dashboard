@@ -10,20 +10,23 @@ function App() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/list">List of Products</Nav.Link>
-          <Nav.Link href="/create">Add Product</Nav.Link>
+          <Nav.Link href="/">Dashboard</Nav.Link>
 
-          <NavDropdown title="Country" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          <NavDropdown title="Administrative" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="/country">Country</NavDropdown.Item>
+            <NavDropdown.Item href="/province/list">Province</NavDropdown.Item>
+            <NavDropdown.Item href="/regency/list">Regency</NavDropdown.Item>
+            <NavDropdown.Item href="/district/list">District</NavDropdown.Item>
+            <NavDropdown.Item href="/village/list">Village</NavDropdown.Item>
           </NavDropdown>
 
-          <Nav.Link href="/listcountry">List of Country</Nav.Link>
-          <Nav.Link href="/createcountry">Add Country</Nav.Link>
+          <Nav.Link href="">Level Category</Nav.Link>
+          <Nav.Link href="">Order Status</Nav.Link>
+          <Nav.Link href="">Service</Nav.Link>
+          <Nav.Link href="">Company</Nav.Link>
+          <Nav.Link href="">Tag</Nav.Link>
+          <Nav.Link href="">Field</Nav.Link>
+          <Nav.Link href="">Service Category</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

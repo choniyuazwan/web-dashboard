@@ -1,34 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import List from './components/List';
-import Edit from './components/Edit';
-import Create from './components/Create';
-import Show from './components/Show';
+import List from './Component/List';
+import Edit from './Component/Edit';
+import Create from './Component/Create';
+import Show from './Component/Show';
 
-import ListCountry from './components/ListCountry';
-import ShowCountry from './components/ShowCountry';
-import CreateCountry from './components/CreateCountry';
-import EditCountry from './components/EditCountry';
+import Country from './Container/Country';
+import CountryShow from './Container/Country/Show';
+import CountryAdd from './Container/Country/Add';
+import CountryEdit from './Container/Country/Edit';
 
 ReactDOM.render(
-    <Router>
-        <div>
-            <Route render ={()=> < App />} path="/" />
-            <Route render ={()=> < List />} path="/list" />
-            <Route render ={()=> < Edit />} path="/edit/:id" />
-            <Route render ={()=> < Create />} path="/create" />
-            <Route render ={()=> < Show />} path="/show/:id" />
+  <Router>
+    <div>
+      <Route render ={() => <App/>} path="/" />
+      <Switch>
+        <Route render ={() => <List/>} path="/list" />
+        <Route render ={() => <Edit/>} path="/edit/:id" />
+        <Route render ={() => <Create/>} path="/create" />
+        <Route render ={() => <Show/>} path="/show/:id" />
 
-          <Route render ={()=> < ListCountry />} path="/listcountry" />
-          <Route render ={()=> < EditCountry />} path="/editcountry/:id" />
-          <Route render ={()=> < CreateCountry />} path="/createcountry" />
-          <Route render ={()=> < ShowCountry />} path="/showcountry/:id" />
-        </div>
-    </Router>, document.getElementById('root'));
+        <Route render ={() => <Country/>} path="/country" exact />
+        <Route render ={() => <CountryAdd/>} path="/country/add" />
+        <Route render ={() => <CountryEdit/>} path="/country/edit/:id" />
+        <Route render ={() => <CountryShow/>} path="/country/show/:id" />
+      </Switch>
+    </div>
+  </Router>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

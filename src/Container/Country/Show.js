@@ -5,7 +5,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
-function ShowCountry(props) {
+function CountryShow(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country/' + props.match.params.id;
@@ -26,7 +26,7 @@ function ShowCountry(props) {
 
   const editProduct = (id) => {
     props.history.push({
-      pathname: '/editcountry/' + id
+      pathname: '/country/edit/' + id
     });
   };
 
@@ -36,7 +36,7 @@ function ShowCountry(props) {
     axios.delete(apiUrl, product)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/listcountry')
+        props.history.push('/country')
       }).catch((error) => setShowLoading(false));
   };
 
@@ -58,4 +58,4 @@ function ShowCountry(props) {
   );
 }
 
-export default withRouter(ShowCountry);
+export default withRouter(CountryShow);

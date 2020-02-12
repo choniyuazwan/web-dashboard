@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
-function EditCountry(props) {
+function CountryEdit(props) {
   console.log('edit props', props);
   const [product, setProduct] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(true);
@@ -37,7 +37,7 @@ function EditCountry(props) {
     axios.put(apiUrl, data, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/showcountry/' + result.data.data.id)
+        props.history.push('/country/show/' + result.data.data.id)
       }).catch((error) => setShowLoading(false));
   };
 
@@ -76,4 +76,4 @@ function EditCountry(props) {
   );
 }
 
-export default withRouter(EditCountry);
+export default withRouter(CountryEdit);

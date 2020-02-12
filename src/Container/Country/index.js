@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Spinner, Table, Button, Pagination, Card, Row, Col, Form, InputGroup, FormControl} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
-function ListCountry(props) {
+function Country(props) {
   const [data, setData] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const [lastPage, setLastPage] = useState(0);
@@ -35,7 +35,7 @@ function ListCountry(props) {
 
   const showDetail = (id) => {
     props.history.push({
-      pathname: '/showcountry/' + id
+      pathname: '/country/show/' + id
     });
   }
 
@@ -55,11 +55,11 @@ function ListCountry(props) {
       </Spinner> }
       <Card body>
         <Row>
-          <Col><h5>Country</h5></Col>
+          <Col xs={12} sm={4} md={8}><h5>Country</h5></Col>
           <Col>
             <Row>
-              <Col className="d-flex flex-row-reverse">
-                <h5><Button size="sm" variant="success" onClick={() => {}}>Add</Button></h5>
+              <Col xs={2} sm={2}>
+                <h5><Button size="sm" variant="success" href="/country/add">Add</Button></h5>
               </Col>
               <Col><h5><Form.Control size="sm" type="text" placeholder="Search"/></h5></Col>
             </Row>
@@ -90,11 +90,11 @@ function ListCountry(props) {
           </tbody>
         </Table>
         <div className="d-flex flex-row-reverse">
-          <Pagination>{paginationItem}</Pagination>
+          <Pagination size="sm">{paginationItem}</Pagination>
         </div>
       </Card>
     </div>
   );
 }
 
-export default withRouter(ListCountry);
+export default withRouter(Country);
