@@ -4,11 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import List from './Component/List';
-import Edit from './Component/Edit';
-import Create from './Component/Create';
-import Show from './Component/Show';
 
+import Login from './Container/Login'
 import Country from './Container/Country';
 import CountryShow from './Container/Country/Show';
 import CountryAdd from './Container/Country/Add';
@@ -19,11 +16,7 @@ ReactDOM.render(
     <div>
       <Route render ={() => <App/>} path="/" />
       <Switch>
-        <Route render ={() => <List/>} path="/list" />
-        <Route render ={() => <Edit/>} path="/edit/:id" />
-        <Route render ={() => <Create/>} path="/create" />
-        <Route render ={() => <Show/>} path="/show/:id" />
-
+        <Route render ={() => <Login/>} path="/login" />
         <Route render ={() => <Country/>} path="/country" exact />
         <Route render ={() => <CountryAdd/>} path="/country/add" />
         <Route render ={() => <CountryEdit/>} path="/country/edit/:id" />
