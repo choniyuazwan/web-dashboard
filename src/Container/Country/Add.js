@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Spinner, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import Config from "../../Util/Config";
+import {setUrl, options} from "../../Util/Api";
 
 function CountryAdd(props) {
   console.log('create props', props);
   const [product, setProduct] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(false);
 
-  const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country';
-  const options = {
-    headers: {
-      'api-client-access-token': 'lawgoindonesia',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-  };
+  const { api: { country: { post }} } = Config;
+  const apiUrl = setUrl(post);
 
   const saveProduct = (e) => {
     setShowLoading(true);

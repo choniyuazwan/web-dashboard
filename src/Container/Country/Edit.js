@@ -5,23 +5,22 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
+import Config from "../../Util/Config";
+import {setUrl, options} from "../../Util/Api";
 
 function CountryEdit(props) {
   console.log('edit props', props);
   const [product, setProduct] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country/' + props.match.params.id;
-  const options = {
-    headers: {
-      'api-client-access-token': 'lawgoindonesia',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-  };
+
+  const { api: { country: { get, put }} } = Config;
+  const getUrl = setUrl(`${get}/${props.match.params.id}`);
+  const putUrl = setUrl(`${put}/${props.match.params.id}`);
 
   useEffect(() => {
     setShowLoading(false);
     const fetchData = async () => {
-      const result = await axios(apiUrl, options);
+      const result = await axios(getUrl, options);
       setProduct(result.data.data);
       console.log(result.data.data);
       setShowLoading(false);
@@ -34,17 +33,17 @@ function CountryEdit(props) {
     setShowLoading(true);
     e.preventDefault();
     const data = { name: product.name };
-    axios.put(apiUrl, data, options)
+    axios.put(putUrl, data, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/country/show/' + result.data.data.id)
+        props.history.push('/country');
       }).catch((error) => setShowLoading(false));
   };
 
   const onChange = (e) => {
     e.persist();
     setProduct({...product, [e.target.name]: e.target.value});
-  }
+  };
 
   return (
     <div>

@@ -6,7 +6,6 @@ const fakeAuth = {
     setTimeout(cb, 100); // fake async
   },
   signout(cb) {
-    fakeAuth.isAuthenticated = false;
     localStorage.removeItem('token');
     setTimeout(cb, 100);
   }
@@ -24,6 +23,25 @@ export function PrivateRoute({ children, ...rest }) {
               pathname: "/login",
               state: { from: location }
             }}
+          />
+        )
+      }
+    />
+  );
+}
+
+export function LoginRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        localStorage.getItem('token') === null ? (
+          children
+        ) : (
+          <Redirect to={{
+            pathname: "/home",
+            state: { from: location }
+          }}
           />
         )
       }

@@ -9,11 +9,11 @@ function App() {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">React-Hooks</Navbar.Brand>
+      <Navbar.Brand>React-Hooks</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Dashboard</Nav.Link>
+          <Nav.Link href="/home">Dashboard</Nav.Link>
 
           <NavDropdown title="Administrative" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/country">Country</NavDropdown.Item>

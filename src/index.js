@@ -7,21 +7,32 @@ import * as serviceWorker from './serviceWorker';
 
 import Login from './Container/Auth/Login'
 import Country from './Container/Country';
-import CountryShow from './Container/Country/Show';
+import CountryDetail from './Container/Country/Detail';
 import CountryAdd from './Container/Country/Add';
 import CountryEdit from './Container/Country/Edit';
-import { PrivateRoute } from "./Util/Auth";
+import { PrivateRoute, LoginRoute } from "./Util/Auth";
+
+const routes = [
+  '/home',
+  '/country'
+];
 
 ReactDOM.render(
   <Router>
     <div>
-      <Route render ={() => <App/>} path="/" />
-      <Route render ={() => <Login/>} path="/login" exact />
+      {routes.map((route, index) => (
+          <Route
+            key={index}
+            path={route}
+            render={() => <App/>}
+          />
+        ))}
       <Switch>
+        <LoginRoute path="/login" exact> <Login/> </LoginRoute>
         <PrivateRoute path="/country" exact> <Country/> </PrivateRoute>
-        <PrivateRoute path="/country/add" exact><CountryAdd/> </PrivateRoute>
+        <PrivateRoute path="/country/add" exact> <CountryAdd/> </PrivateRoute>
         <PrivateRoute path="/country/edit/:id" exact> <CountryEdit/> </PrivateRoute>
-        <PrivateRoute path="/country/show/:id" exact> <CountryShow/> </PrivateRoute>
+        <PrivateRoute path="/country/detail/:id" exact> <CountryDetail/> </PrivateRoute>
       </Switch>
     </div>
   </Router>,

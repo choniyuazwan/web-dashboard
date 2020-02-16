@@ -4,14 +4,15 @@ import Spinner from 'react-bootstrap/Spinner';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
+import Config from "../../Util/Config";
+import {setUrl, options} from "../../Util/Api";
 
-function CountryShow(props) {
+function CountryDetail(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country/' + props.match.params.id;
-  const options = {
-    headers: {'api-client-access-token': 'lawgoindonesia'}
-  };
+
+  const { api: { country: { get }} } = Config;
+  const apiUrl = setUrl(`${get}/${props.match.params.id}`);
 
   useEffect(() => {
     setShowLoading(false);
@@ -50,7 +51,7 @@ function CountryShow(props) {
         <p>{data.prod_desc}</p>
         <h2>Price: ${data.prod_price}</h2>
         <p>
-          <Button type="button" variant="primary" onClick={() => { editProduct(data.id) }}>Edit</Button>&nbsp;
+          <Button type="button" variant="warning" onClick={() => { editProduct(data.id) }}>Edit</Button>&nbsp;
           {/*<Button type="button" variant="danger" onClick={() => { deleteProduct(data.id) }}>Delete</Button>*/}
         </p>
       </Jumbotron>
@@ -58,4 +59,4 @@ function CountryShow(props) {
   );
 }
 
-export default withRouter(CountryShow);
+export default withRouter(CountryDetail);

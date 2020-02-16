@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Spinner, Table, Button, Pagination, Card, Row, Col, Form, InputGroup, FormControl} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import Config from "../../Util/Config";
+import {setUrl, options} from "../../Util/Api";
 
 function Country(props) {
   const [data, setData] = useState([]);
@@ -9,10 +11,8 @@ function Country(props) {
   const [lastPage, setLastPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country';
-  const options = {
-    headers: {'api-client-access-token': 'lawgoindonesia'}
-  };
+  const { api: { country: { get }} } = Config;
+  const apiUrl = setUrl(get);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,9 +35,16 @@ function Country(props) {
 
   const showDetail = (id) => {
     props.history.push({
-      pathname: '/country/show/' + id
+      pathname: '/country/detail/' + id
     });
-  }
+  };
+
+  const editProduct = (id) => {
+    props.history.push({
+      pathname: '/country/edit/' + id
+    });
+  };
+
 
   let paginationItem = [];
   for (let number = 1; number <= lastPage; number++) {
@@ -80,7 +87,8 @@ function Country(props) {
                   <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>
-                    <Button size="sm" onClick={() => {showDetail(item.id)}}>Edit</Button> {' '}
+                    <Button size="sm" onClick={() => {showDetail(item.id)}}>Detail</Button> {' '}
+                    <Button size="sm" variant="warning" onClick={() => { editProduct(item.id) }}>Edit</Button> {' '}
                     <Button size="sm" variant="danger">Delete</Button>
                   </td>
                 </tr>

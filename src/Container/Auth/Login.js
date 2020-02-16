@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { withRouter, useHistory, useLocation } from 'react-router-dom';
 import fakeAuth from "../../Util/Auth";
+import { setUrl, options } from "../../Util/Api";
+import Config from '../../Util/Config'
 
 function Login(props) {
   console.log('create props', props);
@@ -14,12 +16,8 @@ function Login(props) {
 
   let { from } = location.state || { from: { pathname: "/login" } };
 
-  const apiUrl = 'http://api-alpha.law-go.co.id/api/authentication/login';
-  const options = {
-    headers: {
-      'api-client-access-token': 'lawgoindonesia'
-    }
-  };
+  const { api: { login: { post }} } = Config;
+  const apiUrl = setUrl(post);
 
   const login = (e) => {
     setIsLoading(true);
