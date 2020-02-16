@@ -39,7 +39,7 @@ function Country(props) {
     });
   };
 
-  const editProduct = (id) => {
+  const edit = (id) => {
     props.history.push({
       pathname: '/country/edit/' + id
     });
@@ -88,7 +88,7 @@ function Country(props) {
                   <td>{item.name}</td>
                   <td>
                     <Button size="sm" onClick={() => {showDetail(item.id)}}>Detail</Button> {' '}
-                    <Button size="sm" variant="warning" onClick={() => { editProduct(item.id) }}>Edit</Button> {' '}
+                    <Button size="sm" variant="warning" onClick={() => { edit(item.id) }}>Edit</Button> {' '}
                     <Button size="sm" variant="danger">Delete</Button>
                   </td>
                 </tr>

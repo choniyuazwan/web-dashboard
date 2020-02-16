@@ -7,16 +7,16 @@ import {setUrl, options} from "../../Util/Api";
 
 function CountryAdd(props) {
   console.log('create props', props);
-  const [product, setProduct] = useState({ id: '', name: '' });
+  const [data, setData] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(false);
 
   const { api: { country: { post }} } = Config;
   const apiUrl = setUrl(post);
 
-  const saveProduct = (e) => {
+  const save = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { name: product.name };
+    const data = { name: data.name };
     axios.post(apiUrl, data, options)
       .then((result) => {
         setShowLoading(false);
@@ -26,7 +26,7 @@ function CountryAdd(props) {
 
   const onChange = (e) => {
     e.persist();
-    setProduct({...product, [e.target.name]: e.target.value});
+    setData({...data, [e.target.name]: e.target.value});
   };
 
   return (
@@ -41,13 +41,13 @@ function CountryAdd(props) {
         <Row>
           <Col><h5>Country Add</h5></Col>
         </Row>
-        <Form onSubmit={saveProduct}>
+        <Form onSubmit={save}>
           <Form.Group as={Row} controlId="formHorizontalName">
             <Form.Label column sm={2}>
               Name
             </Form.Label>
             <Col sm={10}>
-              <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={product.name} onChange={onChange} />
+              <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={data.name} onChange={onChange} />
             </Col>
           </Form.Group>
           <Form.Group as={Row}>

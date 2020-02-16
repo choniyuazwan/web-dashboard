@@ -10,7 +10,7 @@ import {setUrl, options} from "../../Util/Api";
 
 function CountryEdit(props) {
   console.log('edit props', props);
-  const [product, setProduct] = useState({ id: '', name: '' });
+  const [data, setData] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(true);
 
   const { api: { country: { get, put }} } = Config;
@@ -21,7 +21,7 @@ function CountryEdit(props) {
     setShowLoading(false);
     const fetchData = async () => {
       const result = await axios(getUrl, options);
-      setProduct(result.data.data);
+      setData(result.data.data);
       console.log(result.data.data);
       setShowLoading(false);
     };
@@ -29,11 +29,11 @@ function CountryEdit(props) {
     fetchData();
   }, []);
 
-  const updateProduct = (e) => {
+  const update = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { name: product.name };
-    axios.put(putUrl, data, options)
+    const payload = { name: data.name };
+    axios.put(putUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
         props.history.push('/country');
@@ -42,7 +42,7 @@ function CountryEdit(props) {
 
   const onChange = (e) => {
     e.persist();
-    setProduct({...product, [e.target.name]: e.target.value});
+    setData({...data, [e.target.name]: e.target.value});
   };
 
   return (
@@ -53,19 +53,11 @@ function CountryEdit(props) {
         </Spinner>
       }
       <Jumbotron>
-        <Form onSubmit={updateProduct}>
+        <Form onSubmit={update}>
           <Form.Group>
-            <Form.Label>Product Name</Form.Label>
-            <Form.Control type="text" name="name" id="name" placeholder="Enter product name" value={product.name} onChange={onChange} />
+            <Form.Label>Country Name</Form.Label>
+            <Form.Control type="text" name="name" id="name" placeholder="Enter country name" value={data.name} onChange={onChange} />
           </Form.Group>
-          {/*<Form.Group>*/}
-          {/*  <Form.Label>Product Description</Form.Label>*/}
-          {/*  <Form.Control as="textarea" name="prod_desc" id="prod_desc" rows="3" placeholder="Enter product description" value={product.prod_desc} onChange={onChange} />*/}
-          {/*</Form.Group>*/}
-          {/*<Form.Group>*/}
-          {/*  <Form.Label>Product Price</Form.Label>*/}
-          {/*  <Form.Control type="number" name="prod_price" id="prod_price" placeholder="Enter product price" value={product.prod_price} onChange={onChange} />*/}
-          {/*</Form.Group>*/}
           <Button variant="primary" type="submit">
             Update
           </Button>

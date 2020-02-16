@@ -25,20 +25,10 @@ function CountryDetail(props) {
     fetchData();
   }, []);
 
-  const editProduct = (id) => {
+  const edit = (id) => {
     props.history.push({
       pathname: '/country/edit/' + id
     });
-  };
-
-  const deleteProduct = (id) => {
-    setShowLoading(true);
-    const product = { prod_name: data.prod_name, prod_desc: data.prod_desc, prod_price: parseInt(data.prod_price) };
-    axios.delete(apiUrl, product)
-      .then((result) => {
-        setShowLoading(false);
-        props.history.push('/country')
-      }).catch((error) => setShowLoading(false));
   };
 
   return (
@@ -48,11 +38,8 @@ function CountryDetail(props) {
       </Spinner> }
       <Jumbotron>
         <h1>{data.name}</h1>
-        <p>{data.prod_desc}</p>
-        <h2>Price: ${data.prod_price}</h2>
         <p>
-          <Button type="button" variant="warning" onClick={() => { editProduct(data.id) }}>Edit</Button>&nbsp;
-          {/*<Button type="button" variant="danger" onClick={() => { deleteProduct(data.id) }}>Delete</Button>*/}
+          <Button type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button>&nbsp;
         </p>
       </Jumbotron>
     </div>
