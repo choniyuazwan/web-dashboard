@@ -14,7 +14,7 @@ function CountryEdit(props) {
   const options = {
     headers: {
       'api-client-access-token': 'lawgoindonesia',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTBlOTBlNWY3NzU1NGQ2Y2ZiZTljMjcxMDc5MTMyNmIxZjVkYWRhMGE3ZTFiYjBmMDA0MzFiMmY5ZjAxMzViZWQ2MGYwODdjYWJkMWNhN2IiLCJpYXQiOjE1ODEzNDUyMjksIm5iZiI6MTU4MTM0NTIyOSwiZXhwIjoxNjEyOTY3NjI4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.wXGQv8t8cxuAAXKXpKCVAUGnLRhKt_4IqWn6O0oNM7XQA415VdI1-Wn8G_83ptc6TDVwS8uAvPDX9ZOqo6fdktXGegiJ5yhVSeq0UuEFgUea48A0NZVnEk5sJo_rzj9ZJqGLOYtNnZP1y-gI8aN65GrJ6Q9UghJW6KEbrDiBCyGwhbpgMOwPmlzSyaBLdOIVXw0g0-MwLQk0yV7LBpEmeXlGOiBe0RLezjCWG_8BkHNXZbzW-rSmsOqtwjrb94-yjEFdwfe6765cobG-h-aGLFv9IpLJkbqu_zYhpQyWwKn0eTDXRjja7S6BhRbRjWIvrMdKIFy1sAburp1MnGGSKG4TeOetNkjLV213VitxM64b4cV0Kcu8WHBe2_HlK6yktqNCCgcemDlUvoAsIQbNluecUEVziRw0gJ7Ci2qKMzMBC4isEbPPyDdI6MqUDPsR4b5hg2-X6whLatkpicxy9Sfo5Qogsby50UeZS3v_hwTcwuauN4etd5jFZEbMkm7aI-sgQpfWyCvRLAIamvwjX2sm_SNT9Gtd8RHcxCR9i5y2TaehIWm_hPzz6INp-G6H5i_OxQMW6wixsEG4ZhZT3T0RwMdtMWU_PUTMjFYu_rZWRT9Jm2PLbLN9HGPPdHO6yiD6-yGXdVdiy0mQ2MT2scfHCikSFDf-wA7DRsjR430'
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
   };
 

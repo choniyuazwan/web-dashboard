@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {Button, Card, Col, Container, Form, Row, Spinner} from 'react-bootstrap';
-import {withRouter} from 'react-router-dom';
+import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { withRouter, useHistory, useLocation } from 'react-router-dom';
+import fakeAuth from "../../Util/Auth";
 
 function Login(props) {
   console.log('create props', props);
   const [data, setData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+
+  let history = useHistory();
+  let location = useLocation();
+
+  let { from } = location.state || { from: { pathname: "/login" } };
 
   const apiUrl = 'http://api-alpha.law-go.co.id/api/authentication/login';
   const options = {
@@ -24,6 +30,10 @@ function Login(props) {
         setIsLoading(false);
         props.history.push('/country')
       }).catch((error) => console.log(error));
+
+    fakeAuth.authenticate(() => {
+      history.replace(from);
+    });
   };
 
   const onChange = (e) => {

@@ -5,22 +5,23 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import Login from './Container/Login'
+import Login from './Container/Auth/Login'
 import Country from './Container/Country';
 import CountryShow from './Container/Country/Show';
 import CountryAdd from './Container/Country/Add';
 import CountryEdit from './Container/Country/Edit';
+import { PrivateRoute } from "./Util/Auth";
 
 ReactDOM.render(
   <Router>
     <div>
       <Route render ={() => <App/>} path="/" />
+      <Route render ={() => <Login/>} path="/login" exact />
       <Switch>
-        <Route render ={() => <Login/>} path="/login" />
-        <Route render ={() => <Country/>} path="/country" exact />
-        <Route render ={() => <CountryAdd/>} path="/country/add" />
-        <Route render ={() => <CountryEdit/>} path="/country/edit/:id" />
-        <Route render ={() => <CountryShow/>} path="/country/show/:id" />
+        <PrivateRoute path="/country" exact> <Country/> </PrivateRoute>
+        <PrivateRoute path="/country/add" exact><CountryAdd/> </PrivateRoute>
+        <PrivateRoute path="/country/edit/:id" exact> <CountryEdit/> </PrivateRoute>
+        <PrivateRoute path="/country/show/:id" exact> <CountryShow/> </PrivateRoute>
       </Switch>
     </div>
   </Router>,

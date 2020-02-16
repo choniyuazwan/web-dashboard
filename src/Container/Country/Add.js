@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Spinner, Jumbotron, Form, Button, Row, Col, Card} from 'react-bootstrap';
+import { Spinner, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
 function CountryAdd(props) {
@@ -11,23 +11,10 @@ function CountryAdd(props) {
   const apiUrl = 'http://api-alpha.law-go.co.id/api/administrative/country';
   const options = {
     headers: {
-      'api-client-access-token': 'lawgoindonesia'
+      'api-client-access-token': 'lawgoindonesia',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
   };
-
-  useEffect(() => {
-    const getToken = () => {
-      const apiUrl = 'http://api-alpha.law-go.co.id/api/authentication/login';
-      const data = { email: 'admin@mail.com', password: 'admin' };
-      axios.post(apiUrl, data, options)
-        .then((result) => {
-          localStorage.setItem('token', result.data.accessToken);
-          options.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-        }).catch((error) => console.log(error));
-    };
-
-    getToken();
-  });
 
   const saveProduct = (e) => {
     setShowLoading(true);

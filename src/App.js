@@ -1,8 +1,11 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown, Pagination} from 'react-bootstrap';
 import './App.css';
+import fakeAuth from "./Util/Auth";
+import { useHistory } from "react-router-dom";
 
 function App() {
+  let history = useHistory();
 
   return (
     <Navbar bg="light" expand="lg">
@@ -27,6 +30,9 @@ function App() {
           <Nav.Link href="">Tag</Nav.Link>
           <Nav.Link href="">Field</Nav.Link>
           <Nav.Link href="">Service Category</Nav.Link>
+          <Nav.Link onClick={() => {
+            fakeAuth.signout(() => history.push("/login"));
+          }}>Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
