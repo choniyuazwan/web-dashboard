@@ -8,29 +8,38 @@ import {setUrl, options} from "../../Util/Api";
 function Country(props) {
   const [data, setData] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
-  const [lastPage, setLastPage] = useState(0);
+  const [lastPage, setLastPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
 
   const { api: { country: { get }} } = Config;
   const apiUrl = setUrl(get);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(apiUrl, options);
-      setData(result.data.data);
-      setLastPage(result.data.last_page);
-      setShowLoading(false);
+  const fetchData = async () => {
+    options.params = {
+      'page': '',
+      'keyword': ''
     };
+    const result = await axios(apiUrl, options);
+    setData(result.data.data);
+    setCurrentPage(1);
+    setLastPage(result.data.last_page);
+    setShowLoading(false);
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
   const showListByPage = async (page) => {
-    options.params = {'page': page};
+    options.params = {
+      'page': page,
+      'keyword': keyword
+    };
     const result = await axios(apiUrl, options);
     setData(result.data.data);
-    setShowLoading(false);
-    setCurrentPage(page)
+    setCurrentPage(page);
+    setLastPage(result.data.last_page);
   };
 
   const showDetail = (id) => {
@@ -45,6 +54,24 @@ function Country(props) {
     });
   };
 
+  const showListBySearch = async (keyword) => {
+    options.params = {'keyword': keyword};
+    const result = await axios(apiUrl, options);
+    setData(result.data.data);
+    setLastPage(result.data.last_page);
+    setCurrentPage(1);
+  };
+
+  const onChange = (e) => {
+    e.persist();
+    setKeyword(e.target.value);
+    showListBySearch(e.target.value);
+  };
+
+  const resetKeyword = () => {
+    setKeyword('');
+    fetchData();
+  };
 
   let paginationItem = [];
   for (let number = 1; number <= lastPage; number++) {
@@ -68,7 +95,14 @@ function Country(props) {
               <Col xs={2} sm={2}>
                 <h5><Button size="sm" variant="success" href="/country/add">Add</Button></h5>
               </Col>
-              <Col><h5><Form.Control size="sm" type="text" placeholder="Search"/></h5></Col>
+              <Col>
+                <h5>
+                  <InputGroup>
+                    <FormControl size="sm" placeholder="Search" type="text" name="keyword" id="keyword" value={keyword} onChange={onChange} />
+                    <InputGroup.Append><Button size="sm" variant="outline-danger" onClick={resetKeyword}>X</Button></InputGroup.Append>
+                  </InputGroup>
+                </h5>
+              </Col>
             </Row>
           </Col>
         </Row>

@@ -16,8 +16,8 @@ function CountryAdd(props) {
   const save = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { name: data.name };
-    axios.post(apiUrl, data, options)
+    const payload = { name: data.name };
+    axios.post(apiUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
         props.history.push('/country')
