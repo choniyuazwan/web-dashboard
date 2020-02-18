@@ -13,22 +13,26 @@ import CountryEdit from './Container/Country/Edit';
 import { PrivateRoute, LoginRoute } from "./Util/Auth";
 
 const routes = [
-  '/home',
+  '/',
   '/country'
 ];
 
 ReactDOM.render(
   <Router>
     <div>
-      {routes.map((route, index) => (
+      {routes.map((route, index) =>{
+        const exact = route==='/';
+        return (
           <Route
             key={index}
             path={route}
+            exact={exact}
             render={() => <App/>}
           />
-        ))}
+        )})}
       <Switch>
         <LoginRoute path="/login" exact> <Login/> </LoginRoute>
+        <PrivateRoute path="/" exact> </PrivateRoute>
         <PrivateRoute path="/country" exact> <Country/> </PrivateRoute>
         <PrivateRoute path="/country/add" exact> <CountryAdd/> </PrivateRoute>
         <PrivateRoute path="/country/edit/:id" exact> <CountryEdit/> </PrivateRoute>

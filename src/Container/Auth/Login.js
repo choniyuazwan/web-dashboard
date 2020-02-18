@@ -3,11 +3,9 @@ import axios from 'axios';
 import { Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { withRouter, useHistory, useLocation } from 'react-router-dom';
 import fakeAuth from "../../Util/Auth";
-import { setUrl, options } from "../../Util/Api";
-import Config from '../../Util/Config'
+import { options, url } from "../../Util/Api";
 
 function Login(props) {
-  console.log('create props', props);
   const [data, setData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,8 +14,7 @@ function Login(props) {
 
   let { from } = location.state || { from: { pathname: "/login" } };
 
-  const { api: { login: { post }} } = Config;
-  const apiUrl = setUrl(post);
+  const apiUrl = url.login;
 
   const login = (e) => {
     setIsLoading(true);
@@ -69,7 +66,7 @@ function Login(props) {
               </Form.Group>
               <Form.Group as={Row} className="text-left">
                 <Col xs={{ offset: 3 }}>
-                  <Button size="sm" type="submit">Submit</Button>
+                  <Button size="sm" type="submit">Signin</Button>
                 </Col>
               </Form.Group>
             </Form>

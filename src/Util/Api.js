@@ -1,7 +1,12 @@
 import Config from './Config'
 
-const { api: { baseAddress } } = Config;
+const { api: { baseAddress, login, country } } = Config;
 export const setUrl = (uri) => `${baseAddress}${uri}`;
+
+export const url = {
+  login: setUrl(login),
+  country: setUrl(country)
+};
 
 export const options = {
   headers: {

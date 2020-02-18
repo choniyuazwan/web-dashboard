@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Spinner, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import Config from "../../Util/Config";
-import {setUrl, options} from "../../Util/Api";
+import { options, url } from "../../Util/Api";
 
 function CountryAdd(props) {
-  console.log('create props', props);
   const [data, setData] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(false);
 
-  const { api: { country: { post }} } = Config;
-  const apiUrl = setUrl(post);
+  const apiUrl = url.country;
 
   const save = (e) => {
     setShowLoading(true);
@@ -43,16 +40,17 @@ function CountryAdd(props) {
         </Row>
         <Form onSubmit={save}>
           <Form.Group as={Row} controlId="formHorizontalName">
-            <Form.Label column sm={2}>
+            <Form.Label column sm={3} className="text-right">
               Name
             </Form.Label>
-            <Col sm={10}>
+            <Col sm={4}>
               <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={data.name} onChange={onChange} />
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
-            <Col sm={{ offset: 2 }}>
-              <Button size="sm" type="submit">Submit</Button>
+            <Col sm={{ offset: 3 }}>
+              <Button size="sm" type="submit">Submit</Button> &nbsp;
+              <Button size="sm" type="button" variant="success" href="/country">Back</Button>
             </Col>
           </Form.Group>
         </Form>

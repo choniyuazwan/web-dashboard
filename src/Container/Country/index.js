@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Spinner, Table, Button, Pagination, Card, Row, Col, Form, InputGroup, FormControl} from 'react-bootstrap';
+import {
+  Spinner,
+  Table,
+  Button,
+  Pagination,
+  Card,
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import Config from "../../Util/Config";
-import {setUrl, options} from "../../Util/Api";
+import { url, options } from "../../Util/Api";
 
 function Country(props) {
   const [data, setData] = useState([]);
@@ -11,9 +20,9 @@ function Country(props) {
   const [lastPage, setLastPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
+  const [totalData, setTotalData] = useState(0);
 
-  const { api: { country: { get }} } = Config;
-  const apiUrl = setUrl(get);
+  const apiUrl = url.country;
 
   const fetchData = async () => {
     options.params = {
@@ -24,6 +33,7 @@ function Country(props) {
     setData(result.data.data);
     setCurrentPage(1);
     setLastPage(result.data.last_page);
+    setTotalData(result.data.total);
     setShowLoading(false);
   };
 
@@ -40,6 +50,7 @@ function Country(props) {
     setData(result.data.data);
     setCurrentPage(page);
     setLastPage(result.data.last_page);
+    setTotalData(result.data.total);
   };
 
   const showDetail = (id) => {
@@ -59,6 +70,7 @@ function Country(props) {
     const result = await axios(apiUrl, options);
     setData(result.data.data);
     setLastPage(result.data.last_page);
+    setTotalData(result.data.total);
     setCurrentPage(1);
   };
 
@@ -131,9 +143,14 @@ function Country(props) {
           }
           </tbody>
         </Table>
-        <div className="d-flex flex-row-reverse">
-          <Pagination size="sm">{paginationItem}</Pagination>
-        </div>
+        <Row>
+          <Col><p>Total data: {totalData}</p></Col>
+          <Col className="d-flex flex-row-reverse">
+            <Pagination size="sm">
+              {paginationItem}
+            </Pagination>
+          </Col>
+        </Row>
       </Card>
     </div>
   );

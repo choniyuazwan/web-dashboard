@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
-import Config from "../../Util/Config";
-import {setUrl, options} from "../../Util/Api";
+import { options, url} from "../../Util/Api";
+import {Card, Col, Row} from "react-bootstrap";
 
 function CountryEdit(props) {
-  console.log('edit props', props);
   const [data, setData] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(true);
 
-  const { api: { country: { get, put }} } = Config;
-  const getUrl = setUrl(`${get}/${props.match.params.id}`);
-  const putUrl = setUrl(`${put}/${props.match.params.id}`);
+  const apiUrl = `${url.country}/${props.match.params.id}`;
 
   useEffect(() => {
     setShowLoading(false);
     const fetchData = async () => {
-      const result = await axios(getUrl, options);
+      const result = await axios(apiUrl, options);
       setData(result.data.data);
       console.log(result.data.data);
       setShowLoading(false);
@@ -33,7 +29,7 @@ function CountryEdit(props) {
     setShowLoading(true);
     e.preventDefault();
     const payload = { name: data.name };
-    axios.put(putUrl, payload, options)
+    axios.put(apiUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
         props.history.push('/country');
@@ -52,17 +48,28 @@ function CountryEdit(props) {
           <span className="sr-only">Loading...</span>
         </Spinner>
       }
-      <Jumbotron>
+
+      <Card body>
+        <Row>
+          <Col><h5>Country Edit</h5></Col>
+        </Row>
         <Form onSubmit={update}>
-          <Form.Group>
-            <Form.Label>Country Name</Form.Label>
-            <Form.Control type="text" name="name" id="name" placeholder="Enter country name" value={data.name} onChange={onChange} />
+          <Form.Group as={Row} controlId="formHorizontalName">
+            <Form.Label column sm={3} className="text-right">
+              Name
+            </Form.Label>
+            <Col sm={4}>
+              <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={data.name} onChange={onChange} />
+            </Col>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
+          <Form.Group as={Row}>
+            <Col sm={{ offset: 3 }}>
+              <Button size="sm" type="submit">Submit</Button> &nbsp;
+              <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+            </Col>
+          </Form.Group>
         </Form>
-      </Jumbotron>
+      </Card>
     </div>
   );
 }

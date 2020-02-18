@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
-import Config from "../../Util/Config";
-import {setUrl, options} from "../../Util/Api";
+import { options, url } from "../../Util/Api";
+import { Card, Col, Row } from "react-bootstrap";
 
 function CountryDetail(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
 
-  const { api: { country: { get }} } = Config;
-  const apiUrl = setUrl(`${get}/${props.match.params.id}`);
+  const apiUrl = `${url.country}/${props.match.params.id}`;
 
   useEffect(() => {
     setShowLoading(false);
@@ -36,12 +34,29 @@ function CountryDetail(props) {
       {showLoading && <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner> }
-      <Jumbotron>
-        <h1>{data.name}</h1>
-        <p>
-          <Button type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button>&nbsp;
-        </p>
-      </Jumbotron>
+
+      <Card body>
+        <Row>
+          <Col><h5>Country Detail</h5></Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col xs={3} className="text-right">Id</Col>
+          <Col xs={9}>{data.id}</Col>
+        </Row>
+        <Row>
+          <Col xs={3} className="text-right">Name</Col>
+          <Col xs={9}>{data.name}</Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col sm={9} xs={{offset: 3}}>
+            <Button size="sm" type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button> &nbsp;
+            <Button size="sm" type="button" variant="danger">Delete</Button> &nbsp;
+            <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+          </Col>
+        </Row>
+      </Card>
     </div>
   );
 }
