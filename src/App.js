@@ -17,7 +17,7 @@ function App() {
 
           <NavDropdown title="Administrative" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/country">Country</NavDropdown.Item>
-            <NavDropdown.Item href="/province/list">Province</NavDropdown.Item>
+            <NavDropdown.Item href="/province">Province</NavDropdown.Item>
             <NavDropdown.Item href="/regency/list">Regency</NavDropdown.Item>
             <NavDropdown.Item href="/district/list">District</NavDropdown.Item>
             <NavDropdown.Item href="/village/list">Village</NavDropdown.Item>

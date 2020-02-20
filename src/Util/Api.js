@@ -1,11 +1,12 @@
 import Config from './Config'
 
-const { api: { baseAddress, login, country } } = Config;
+const { api: { baseAddress, login, country, province } } = Config;
 export const setUrl = (uri) => `${baseAddress}${uri}`;
 
 export const url = {
   login: setUrl(login),
-  country: setUrl(country)
+  country: setUrl(country),
+  province: setUrl(province)
 };
 
 export const options = {

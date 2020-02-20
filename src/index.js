@@ -10,11 +10,16 @@ import Country from './Container/Country';
 import CountryDetail from './Container/Country/Detail';
 import CountryAdd from './Container/Country/Add';
 import CountryEdit from './Container/Country/Edit';
+import Province from './Container/Province';
+import ProvinceDetail from './Container/Province/Detail';
+import ProvinceAdd from './Container/Province/Add';
+import ProvinceEdit from './Container/Province/Edit';
 import { PrivateRoute, LoginRoute } from "./Util/Auth";
 
 const routes = [
   '/',
-  '/country'
+  '/country',
+  '/province'
 ];
 
 ReactDOM.render(
@@ -37,6 +42,10 @@ ReactDOM.render(
         <PrivateRoute path="/country/add" exact> <CountryAdd/> </PrivateRoute>
         <PrivateRoute path="/country/edit/:id" exact> <CountryEdit/> </PrivateRoute>
         <PrivateRoute path="/country/detail/:id" exact> <CountryDetail/> </PrivateRoute>
+        <PrivateRoute path="/province" exact> <Province/> </PrivateRoute>
+        <PrivateRoute path="/province/add" exact> <ProvinceAdd/> </PrivateRoute>
+        <PrivateRoute path="/province/edit/:id" exact> <ProvinceEdit/> </PrivateRoute>
+        <PrivateRoute path="/province/detail/:id" exact> <ProvinceDetail/> </PrivateRoute>
       </Switch>
     </div>
   </Router>,
