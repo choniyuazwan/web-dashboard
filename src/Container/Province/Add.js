@@ -5,16 +5,16 @@ import { withRouter } from 'react-router-dom';
 import { options, url } from "../../Util/Api";
 
 function ProvinceAdd(props) {
-  const [countryData, setCountryData] = useState({ id: '', name: '' });
+  const [listCountry, setListCountry] = useState([]);
   const [data, setData] = useState({ country_id: '', name: '' });
   const [showLoading, setShowLoading] = useState(false);
 
-  const countryUrl = url.country;
+  const countryUrl = `${url.country}?size=9999`;
   const provinceUrl = url.province;
 
   const fetchCountryData = async () => {
     const result = await axios(countryUrl, options);
-    setCountryData(result.data.data);
+    setListCountry(result.data.data);
     setShowLoading(false);
   };
 
@@ -56,12 +56,13 @@ function ProvinceAdd(props) {
               Country
             </Form.Label>
             <Col sm={4}>
-              <Form.Control as="select" size="sm" name="country_id" id="country_id" value={data.name} onChange={onChange} >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <Form.Control as="select" size="sm" name="country_id" value={data.country_id} onChange={onChange} >
+                <option>Choose...</option>
+                {
+                  listCountry.map((item, index) => (
+                    <option key={index} value={item.id}>{item.name}</option>
+                  ))
+                }
               </Form.Control>
             </Col>
           </Form.Group>
