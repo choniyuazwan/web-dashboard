@@ -25,60 +25,64 @@ function CountryAdd(props) {
     name: yup.string().required()
   });
 
+  const content = () => (
+    <div>
+      <Row>
+        <Col><h5>Country Add</h5></Col>
+      </Row>
+      <Formik
+        validationSchema={schema}
+        onSubmit={save}
+        initialValues={{
+          name: '',
+        }}
+      >
+        {({
+            handleSubmit,
+            handleChange,
+            values,
+            touched,
+            isValid,
+            errors,
+          }) => {
+          const disabled = !isValid || values.name === '';
+          return (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group as={Row}>
+                <Form.Label column sm={3} className="text-right">
+                  Name
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                  </Form.Control.Feedback>
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row}>
+                <Col sm={{ offset: 3 }}>
+                  <Button size="sm" type="submit" disabled={disabled}>Submit</Button> &nbsp;
+                  <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+                </Col>
+              </Form.Group>
+            </Form>
+          )
+        }}
+      </Formik>
+    </div>
+  );
+
+  const loading = () => (
+    <div className="d-flex justify-content-center">
+      <Spinner animation="border"/>
+    </div>
+  );
+
   return (
     <div>
-      {showLoading &&
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      }
-
       <Card body>
-        <Row>
-          <Col><h5>Country Add</h5></Col>
-        </Row>
-
-        <Formik
-          validationSchema={schema}
-          onSubmit={save}
-          initialValues={{
-            name: '',
-          }}
-        >
-          {({
-              handleSubmit,
-              handleChange,
-              handleBlur,
-              values,
-              touched,
-              isValid,
-              errors,
-            }) => {
-            const disabled = !isValid || values.name === '';
-            return (
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group as={Row}>
-                  <Form.Label column sm={3} className="text-right">
-                    Name
-                  </Form.Label>
-                  <Col sm={4}>
-                    <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">
-                      {errors.name}
-                    </Form.Control.Feedback>
-                  </Col>
-                </Form.Group>
-                <Form.Group as={Row}>
-                  <Col sm={{ offset: 3 }}>
-                    <Button size="sm" type="submit" disabled={disabled}>Submit</Button> &nbsp;
-                    <Button size="sm" type="button" variant="success" href="/country">Back</Button>
-                  </Col>
-                </Form.Group>
-              </Form>
-            )
-          }}
-        </Formik>
+        { showLoading ? loading() : content() }
       </Card>
     </div>
   );

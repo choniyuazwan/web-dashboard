@@ -29,33 +29,41 @@ function CountryDetail(props) {
     });
   };
 
+  const content = () => (
+    <div>
+      <Row>
+        <Col><h5>Country Detail</h5></Col>
+      </Row>
+      <br/>
+      <Row>
+        <Col xs={3} className="text-right">Id</Col>
+        <Col xs={9}>{data.id}</Col>
+      </Row>
+      <Row>
+        <Col xs={3} className="text-right">Name</Col>
+        <Col xs={9}>{data.name}</Col>
+      </Row>
+      <br/>
+      <Row>
+        <Col sm={9} xs={{offset: 3}}>
+          <Button size="sm" type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button> &nbsp;
+          <Button size="sm" type="button" variant="danger">Delete</Button> &nbsp;
+          <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+        </Col>
+      </Row>
+    </div>
+  );
+
+  const loading = () => (
+    <div className="d-flex justify-content-center">
+      <Spinner animation="border"/>
+    </div>
+  );
+
   return (
     <div>
-      {showLoading && <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner> }
-
       <Card body>
-        <Row>
-          <Col><h5>Country Detail</h5></Col>
-        </Row>
-        <br/>
-        <Row>
-          <Col xs={3} className="text-right">Id</Col>
-          <Col xs={9}>{data.id}</Col>
-        </Row>
-        <Row>
-          <Col xs={3} className="text-right">Name</Col>
-          <Col xs={9}>{data.name}</Col>
-        </Row>
-        <br/>
-        <Row>
-          <Col sm={9} xs={{offset: 3}}>
-            <Button size="sm" type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button> &nbsp;
-            <Button size="sm" type="button" variant="danger">Delete</Button> &nbsp;
-            <Button size="sm" type="button" variant="success" href="/country">Back</Button>
-          </Col>
-        </Row>
+        { showLoading ? loading() : content() }
       </Card>
     </div>
   );
