@@ -29,7 +29,7 @@ function ProvinceAdd(props) {
     axios.post(provinceUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/province')
+        props.history.push('/province', {successMessage: true})
       }).catch((error) => setShowLoading(false));
   };
 
@@ -68,7 +68,7 @@ function ProvinceAdd(props) {
               isValid,
               errors,
             }) => {
-            const disabled = !isValid || values.country_id !== '' || values.name === '';
+            const disabled = !isValid || values.country_id === '' || values.name === '';
             return (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="exampleForm.ControlSelect1">

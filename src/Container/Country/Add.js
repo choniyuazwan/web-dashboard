@@ -17,7 +17,7 @@ function CountryAdd(props) {
     axios.post(apiUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/country')
+        props.history.push('/country', {successMessage: true})
       }).catch((error) => setShowLoading(false));
   };
 

@@ -13,6 +13,7 @@ import {
 } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { url, options } from "../../Util/Api";
+import AlertMessage from "../../Component/AlertMessage";
 
 function Province(props) {
   const [data, setData] = useState([]);
@@ -21,6 +22,7 @@ function Province(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [totalData, setTotalData] = useState(0);
+  const [successMessage, setSuccessMessage] = useState(props.location.state);
 
   const apiUrl = url.province;
 
@@ -100,6 +102,7 @@ function Province(props) {
         <span className="sr-only">Loading...</span>
       </Spinner> }
       <Card body>
+        <AlertMessage show={successMessage} />
         <Row>
           <Col xs={12} sm={4} md={8}><h5>Province</h5></Col>
           <Col>
