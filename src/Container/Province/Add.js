@@ -68,7 +68,7 @@ function ProvinceAdd(props) {
               isValid,
               errors,
             }) => {
-            const valid = !!isValid && values.country_id !== '';
+            const disabled = !isValid || values.country_id !== '' || values.name === '';
             return (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="exampleForm.ControlSelect1">
@@ -104,7 +104,7 @@ function ProvinceAdd(props) {
                 </Form.Group>
                 <Form.Group as={Row}>
                   <Col sm={{ offset: 3 }}>
-                    <Button size="sm" type="submit" disabled={!valid} >Submit</Button> &nbsp;
+                    <Button size="sm" type="submit" disabled={disabled} >Submit</Button> &nbsp;
                     <Button size="sm" type="button" variant="success" href="/province">Back</Button>
                   </Col>
                 </Form.Group>

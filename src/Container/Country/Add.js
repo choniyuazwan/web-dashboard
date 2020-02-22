@@ -3,16 +3,16 @@ import axios from 'axios';
 import { Spinner, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { options, url } from "../../Util/Api";
+import * as yup from "yup";
+import {Formik} from "formik";
 
 function CountryAdd(props) {
-  const [data, setData] = useState({ id: '', name: '' });
   const [showLoading, setShowLoading] = useState(false);
 
   const apiUrl = url.country;
 
-  const save = (e) => {
+  const save = (data) => {
     setShowLoading(true);
-    e.preventDefault();
     const payload = { name: data.name };
     axios.post(apiUrl, payload, options)
       .then((result) => {
@@ -21,10 +21,9 @@ function CountryAdd(props) {
       }).catch((error) => setShowLoading(false));
   };
 
-  const onChange = (e) => {
-    e.persist();
-    setData({...data, [e.target.name]: e.target.value});
-  };
+  const schema = yup.object({
+    name: yup.string().required()
+  });
 
   return (
     <div>
@@ -38,22 +37,48 @@ function CountryAdd(props) {
         <Row>
           <Col><h5>Country Add</h5></Col>
         </Row>
-        <Form onSubmit={save}>
-          <Form.Group as={Row} controlId="formHorizontalName">
-            <Form.Label column sm={3} className="text-right">
-              Name
-            </Form.Label>
-            <Col sm={4}>
-              <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={data.name} onChange={onChange} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Col sm={{ offset: 3 }}>
-              <Button size="sm" type="submit">Submit</Button> &nbsp;
-              <Button size="sm" type="button" variant="success" href="/country">Back</Button>
-            </Col>
-          </Form.Group>
-        </Form>
+
+        <Formik
+          validationSchema={schema}
+          onSubmit={save}
+          initialValues={{
+            name: '',
+          }}
+        >
+          {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+            }) => {
+            const disabled = !isValid || values.name === '';
+            return (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group as={Row} controlId="formHorizontalName">
+                  <Form.Label column sm={3} className="text-right">
+                    Name
+                  </Form.Label>
+                  <Col sm={4}>
+                    <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Col sm={{ offset: 3 }}>
+                    <Button size="sm" type="submit" disabled={disabled}>Submit</Button> &nbsp;
+                    <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+                  </Col>
+                </Form.Group>
+              </Form>
+            )
+          }}
+        </Formik>
       </Card>
     </div>
   );
