@@ -48,7 +48,7 @@ function Login(props) {
           <Card body className="text-center">
             <Card.Title>Login</Card.Title>
             <Form onSubmit={login}>
-              <Form.Group as={Row} controlId="formHorizontalName">
+              <Form.Group as={Row}>
                 <Form.Label column xs={3} className="text-right">
                   Email
                 </Form.Label>
@@ -56,7 +56,7 @@ function Login(props) {
                   <Form.Control size="sm" type="text" name="email" id="email" placeholder="email" value={data.email} onChange={onChange} />
                 </Col>
               </Form.Group>
-              <Form.Group as={Row} controlId="formHorizontalName">
+              <Form.Group as={Row}>
                 <Form.Label column xs={3} className="text-right">
                   Password
                 </Form.Label>

@@ -57,7 +57,7 @@ function CountryAdd(props) {
             const disabled = !isValid || values.name === '';
             return (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group as={Row} controlId="formHorizontalName">
+                <Form.Group as={Row}>
                   <Form.Label column sm={3} className="text-right">
                     Name
                   </Form.Label>

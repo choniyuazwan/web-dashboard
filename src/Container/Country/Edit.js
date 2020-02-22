@@ -6,9 +6,11 @@ import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { options, url} from "../../Util/Api";
 import {Card, Col, Row} from "react-bootstrap";
+import * as yup from "yup";
+import {Formik} from "formik";
 
 function CountryEdit(props) {
-  const [data, setData] = useState({ id: '', name: '' });
+  const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
 
   const apiUrl = `${url.country}/${props.match.params.id}`;
@@ -18,16 +20,14 @@ function CountryEdit(props) {
     const fetchData = async () => {
       const result = await axios(apiUrl, options);
       setData(result.data.data);
-      console.log(result.data.data);
       setShowLoading(false);
     };
 
     fetchData();
   }, []);
 
-  const update = (e) => {
+  const update = (data) => {
     setShowLoading(true);
-    e.preventDefault();
     const payload = { name: data.name };
     axios.put(apiUrl, payload, options)
       .then((result) => {
@@ -36,10 +36,9 @@ function CountryEdit(props) {
       }).catch((error) => setShowLoading(false));
   };
 
-  const onChange = (e) => {
-    e.persist();
-    setData({...data, [e.target.name]: e.target.value});
-  };
+  const schema = yup.object({
+    name: yup.string().required()
+  });
 
   return (
     <div>
@@ -53,22 +52,48 @@ function CountryEdit(props) {
         <Row>
           <Col><h5>Country Edit</h5></Col>
         </Row>
-        <Form onSubmit={update}>
-          <Form.Group as={Row} controlId="formHorizontalName">
-            <Form.Label column sm={3} className="text-right">
-              Name
-            </Form.Label>
-            <Col sm={4}>
-              <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={data.name} onChange={onChange} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Col sm={{ offset: 3 }}>
-              <Button size="sm" type="submit">Submit</Button> &nbsp;
-              <Button size="sm" type="button" variant="success" href="/country">Back</Button>
-            </Col>
-          </Form.Group>
-        </Form>
+        <Formik
+          validationSchema={schema}
+          onSubmit={update}
+          initialValues={{
+            name: data.name,
+          }}
+          enableReinitialize={true}
+        >
+          {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+            }) => {
+            const disabled = !isValid || values.name === '';
+            return (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group as={Row}>
+                  <Form.Label column sm={3} className="text-right">
+                    Name
+                  </Form.Label>
+                  <Col sm={4}>
+                    <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Col sm={{ offset: 3 }}>
+                    <Button size="sm" type="submit" disabled={disabled}>Submit</Button> &nbsp;
+                    <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+                  </Col>
+                </Form.Group>
+              </Form>
+            )
+          }}
+        </Formik>
       </Card>
     </div>
   );

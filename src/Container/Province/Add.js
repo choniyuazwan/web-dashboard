@@ -13,14 +13,14 @@ function ProvinceAdd(props) {
   const countryUrl = `${url.country}?size=9999`;
   const provinceUrl = url.province;
 
-  const fetchCountryData = async () => {
+  const fetchListCountry = async () => {
     const result = await axios(countryUrl, options);
     setListCountry(result.data.data);
     setShowLoading(false);
   };
 
   useEffect(() => {
-    fetchCountryData();
+    fetchListCountry();
   }, []);
 
   const save = (data) => {
@@ -71,7 +71,7 @@ function ProvinceAdd(props) {
             const disabled = !isValid || values.country_id === '' || values.name === '';
             return (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group as={Row} controlId="exampleForm.ControlSelect1">
+                <Form.Group as={Row}>
                   <Form.Label column sm={3} className="text-right">
                     Country
                   </Form.Label>
@@ -90,7 +90,7 @@ function ProvinceAdd(props) {
                     </Form.Control.Feedback>
                   </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="formHorizontalName">
+                <Form.Group as={Row}>
                   <Form.Label column sm={3} className="text-right">
                     Name
                   </Form.Label>
