@@ -1,67 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Spinner from 'react-bootstrap/Spinner';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import { Spinner, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { options, url} from "../../Util/Api";
-import {Card, Col, Row} from "react-bootstrap";
-import { Formik } from "formik";
-import * as yup from "yup";
+import { options, url } from "../../Util/Api";
 
-function ProvinceEdit(props) {
-  const [data, setData] = useState({});
-  const [listCountry, setListCountry] = useState([]);
-  const [showLoading, setShowLoading] = useState(true);
+function RegencyAdd(props) {
+  const [listProvince, setListProvince] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
 
-  const countryUrl = `${url.country}?size=9999`;
-  const provinceUrl = `${url.province}/${props.match.params.id}`;
+  const provinceUrl = `${url.province}?size=9999`;
+  const regencyUrl = url.regency;
 
-  const fetchData = async () => {
-    setShowLoading(true);
+  const fetchListProvince = async () => {
     const result = await axios(provinceUrl, options);
-    setData(result.data.data);
+    setListProvince(result.data.data);
     setShowLoading(false);
   };
 
-  const fetchListCountry = async () => {
-    const result = await axios(countryUrl, options);
-    setListCountry(result.data.data);
-  };
-
   useEffect(() => {
-    fetchData();
-    fetchListCountry();
+    fetchListProvince();
   }, []);
 
-  const update = (data) => {
+  const save = (data) => {
     setShowLoading(true);
-    const payload = {country_id: data.country_id, name: data.name };
-    axios.put(provinceUrl, payload, options)
+    const payload = {province_id: data.province_id, name: data.name };
+    axios.post(regencyUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/province', {successMessage: true});
+        props.history.push('/regency', {successMessage: true})
       }).catch((error) => setShowLoading(false));
   };
 
   const schema = yup.object({
-    country_id: yup.string().required(),
+    province_id: yup.string().required(),
     name: yup.string().required()
   });
 
   const content = () => (
     <div>
       <Row>
-        <Col><h5>Province Edit</h5></Col>
+        <Col><h5>Regency Add</h5></Col>
       </Row>
       <Formik
         validationSchema={schema}
-        onSubmit={update}
+        onSubmit={save}
         initialValues={{
-          country_id: data.country_id,
-          name: data.name
+          province_id: '',
+          name: '',
         }}
-        enableReinitialize={true}
       >
         {({
             handleSubmit,
@@ -71,25 +59,25 @@ function ProvinceEdit(props) {
             isValid,
             errors,
           }) => {
-          const disabled = !isValid || values.country_id === '' || values.name === '';
+          const disabled = !isValid || values.province_id === '' || values.name === '';
           return (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group as={Row}>
                 <Form.Label column sm={3} className="text-right">
-                  Country
+                  Province
                 </Form.Label>
                 <Col sm={4}>
-                  <Form.Control as="select" size="sm" name="country_id" value={values.country_id} onChange={handleChange} isValid={touched.country_id && !errors.country_id} isInvalid={!!errors.country_id} >
+                  <Form.Control as="select" size="sm" name="province_id" value={values.province_id} onChange={handleChange} isValid={touched.province_id && !errors.province_id} isInvalid={!!errors.province_id} >
                     <option value="">Choose...</option>
                     {
-                      listCountry.map((item, index) => (
-                        <option selected={item.id===data.country_id} key={index} value={item.id}>{item.name}</option>
+                      listProvince.map((item, index) => (
+                        <option key={index} value={item.id}>{item.name}</option>
                       ))
                     }
                   </Form.Control>
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
-                    {errors.country_id}
+                    {errors.province_id}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -98,7 +86,7 @@ function ProvinceEdit(props) {
                   Name
                 </Form.Label>
                 <Col sm={4}>
-                  <Form.Control size="sm" type="text" name="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
+                  <Form.Control size="sm" type="text" name="name" id="name" placeholder="Name" value={values.name} onChange={handleChange} isValid={touched.name && !errors.name} isInvalid={!!errors.name} />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     {errors.name}
@@ -108,7 +96,7 @@ function ProvinceEdit(props) {
               <Form.Group as={Row}>
                 <Col sm={{ offset: 3 }}>
                   <Button size="sm" type="submit" disabled={disabled} >Submit</Button> &nbsp;
-                  <Button size="sm" type="button" variant="success" href="/province">Back</Button>
+                  <Button size="sm" type="button" variant="success" href="/regency">Back</Button>
                 </Col>
               </Form.Group>
             </Form>
@@ -133,4 +121,4 @@ function ProvinceEdit(props) {
   );
 }
 
-export default withRouter(ProvinceEdit);
+export default withRouter(RegencyAdd);

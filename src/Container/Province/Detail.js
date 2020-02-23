@@ -6,14 +6,14 @@ import { withRouter } from 'react-router-dom';
 import { options, url } from "../../Util/Api";
 import { Card, Col, Row } from "react-bootstrap";
 
-function CountryDetail(props) {
+function ProvinceDetail(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
 
-  const apiUrl = `${url.country}/${props.match.params.id}`;
+  const apiUrl = `${url.province}/${props.match.params.id}`;
 
   useEffect(() => {
-    setShowLoading(false);
+    setShowLoading(true);
     const fetchData = async () => {
       const result = await axios(apiUrl, options);
       setData(result.data.data);
@@ -25,19 +25,23 @@ function CountryDetail(props) {
 
   const edit = (id) => {
     props.history.push({
-      pathname: '/country/edit/' + id
+      pathname: '/province/edit/' + id
     });
   };
 
   const content = () => (
     <div>
       <Row>
-        <Col><h5>Country Detail</h5></Col>
+        <Col><h5>Province Detail</h5></Col>
       </Row>
       <br/>
       <Row>
         <Col xs={3} className="text-right">Id</Col>
         <Col xs={9}>{data.id}</Col>
+      </Row>
+      <Row>
+        <Col xs={3} className="text-right">Country</Col>
+        <Col xs={9}>{data.country.name}</Col>
       </Row>
       <Row>
         <Col xs={3} className="text-right">Name</Col>
@@ -48,7 +52,7 @@ function CountryDetail(props) {
         <Col sm={9} xs={{offset: 3}}>
           <Button size="sm" type="button" variant="warning" onClick={() => { edit(data.id) }}>Edit</Button> &nbsp;
           <Button size="sm" type="button" variant="danger">Delete</Button> &nbsp;
-          <Button size="sm" type="button" variant="success" href="/country">Back</Button>
+          <Button size="sm" type="button" variant="success" href="/province">Back</Button>
         </Col>
       </Row>
     </div>
@@ -69,4 +73,4 @@ function CountryDetail(props) {
   );
 }
 
-export default withRouter(CountryDetail);
+export default withRouter(ProvinceDetail);

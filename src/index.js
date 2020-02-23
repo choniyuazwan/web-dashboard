@@ -14,12 +14,17 @@ import Province from './Container/Province';
 import ProvinceDetail from './Container/Province/Detail';
 import ProvinceAdd from './Container/Province/Add';
 import ProvinceEdit from './Container/Province/Edit';
+import Regency from './Container/Regency';
+import RegencyDetail from './Container/Regency/Detail';
+import RegencyAdd from './Container/Regency/Add';
+import RegencyEdit from './Container/Regency/Edit';
 import { PrivateRoute, LoginRoute } from "./Util/Auth";
 
 const routes = [
   '/',
   '/country',
-  '/province'
+  '/province',
+  '/regency'
 ];
 
 ReactDOM.render(
@@ -46,6 +51,10 @@ ReactDOM.render(
         <PrivateRoute path="/province/add" exact> <ProvinceAdd/> </PrivateRoute>
         <PrivateRoute path="/province/edit/:id" exact> <ProvinceEdit/> </PrivateRoute>
         <PrivateRoute path="/province/detail/:id" exact> <ProvinceDetail/> </PrivateRoute>
+        <PrivateRoute path="/regency" exact> <Regency/> </PrivateRoute>
+        <PrivateRoute path="/regency/add" exact> <RegencyAdd/> </PrivateRoute>
+        <PrivateRoute path="/regency/edit/:id" exact> <RegencyEdit/> </PrivateRoute>
+        <PrivateRoute path="/regency/detail/:id" exact> <RegencyDetail/> </PrivateRoute>
       </Switch>
     </div>
   </Router>,

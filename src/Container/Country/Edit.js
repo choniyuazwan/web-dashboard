@@ -16,7 +16,7 @@ function CountryEdit(props) {
   const apiUrl = `${url.country}/${props.match.params.id}`;
 
   useEffect(() => {
-    setShowLoading(false);
+    setShowLoading(true);
     const fetchData = async () => {
       const result = await axios(apiUrl, options);
       setData(result.data.data);

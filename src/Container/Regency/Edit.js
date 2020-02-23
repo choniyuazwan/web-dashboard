@@ -9,43 +9,42 @@ import {Card, Col, Row} from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-function ProvinceEdit(props) {
+function RegencyEdit(props) {
   const [data, setData] = useState({});
-  const [listCountry, setListCountry] = useState([]);
+  const [listProvince, setListProvince] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
 
-  const countryUrl = `${url.country}?size=9999`;
-  const provinceUrl = `${url.province}/${props.match.params.id}`;
+  const provinceUrl = `${url.province}?size=9999`;
+  const regencyUrl = `${url.regency}/${props.match.params.id}`;
 
   const fetchData = async () => {
-    setShowLoading(true);
-    const result = await axios(provinceUrl, options);
+    const result = await axios(regencyUrl, options);
     setData(result.data.data);
     setShowLoading(false);
   };
 
-  const fetchListCountry = async () => {
-    const result = await axios(countryUrl, options);
-    setListCountry(result.data.data);
+  const fetchListProvince = async () => {
+    const result = await axios(provinceUrl, options);
+    setListProvince(result.data.data);
   };
 
   useEffect(() => {
     fetchData();
-    fetchListCountry();
+    fetchListProvince();
   }, []);
 
   const update = (data) => {
     setShowLoading(true);
-    const payload = {country_id: data.country_id, name: data.name };
-    axios.put(provinceUrl, payload, options)
+    const payload = {province_id: data.province_id, name: data.name };
+    axios.put(regencyUrl, payload, options)
       .then((result) => {
         setShowLoading(false);
-        props.history.push('/province', {successMessage: true});
+        props.history.push('/regency', {successMessage: true});
       }).catch((error) => setShowLoading(false));
   };
 
   const schema = yup.object({
-    country_id: yup.string().required(),
+    province_id: yup.string().required(),
     name: yup.string().required()
   });
 
@@ -58,7 +57,7 @@ function ProvinceEdit(props) {
         validationSchema={schema}
         onSubmit={update}
         initialValues={{
-          country_id: data.country_id,
+          province_id: data.province_id,
           name: data.name
         }}
         enableReinitialize={true}
@@ -71,25 +70,25 @@ function ProvinceEdit(props) {
             isValid,
             errors,
           }) => {
-          const disabled = !isValid || values.country_id === '' || values.name === '';
+          const disabled = !isValid || values.province_id === '' || values.name === '';
           return (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group as={Row}>
                 <Form.Label column sm={3} className="text-right">
-                  Country
+                  Province
                 </Form.Label>
                 <Col sm={4}>
-                  <Form.Control as="select" size="sm" name="country_id" value={values.country_id} onChange={handleChange} isValid={touched.country_id && !errors.country_id} isInvalid={!!errors.country_id} >
+                  <Form.Control as="select" size="sm" name="province_id" value={values.province_id} onChange={handleChange} isValid={touched.province_id && !errors.province_id} isInvalid={!!errors.province_id} >
                     <option value="">Choose...</option>
                     {
-                      listCountry.map((item, index) => (
-                        <option selected={item.id===data.country_id} key={index} value={item.id}>{item.name}</option>
+                      listProvince.map((item, index) => (
+                        <option selected={item.id===data.province_id} key={index} value={item.id}>{item.name}</option>
                       ))
                     }
                   </Form.Control>
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
-                    {errors.country_id}
+                    {errors.province_id}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -108,7 +107,7 @@ function ProvinceEdit(props) {
               <Form.Group as={Row}>
                 <Col sm={{ offset: 3 }}>
                   <Button size="sm" type="submit" disabled={disabled} >Submit</Button> &nbsp;
-                  <Button size="sm" type="button" variant="success" href="/province">Back</Button>
+                  <Button size="sm" type="button" variant="success" href="/regency">Back</Button>
                 </Col>
               </Form.Group>
             </Form>
@@ -133,4 +132,4 @@ function ProvinceEdit(props) {
   );
 }
 
-export default withRouter(ProvinceEdit);
+export default withRouter(RegencyEdit);

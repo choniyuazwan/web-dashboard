@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavDropdown, Pagination} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import fakeAuth from "./Util/Auth";
 import { useHistory } from "react-router-dom";
@@ -18,9 +18,9 @@ function App() {
           <NavDropdown title="Administrative" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/country">Country</NavDropdown.Item>
             <NavDropdown.Item href="/province">Province</NavDropdown.Item>
-            <NavDropdown.Item href="/regency/list">Regency</NavDropdown.Item>
-            <NavDropdown.Item href="/district/list">District</NavDropdown.Item>
-            <NavDropdown.Item href="/village/list">Village</NavDropdown.Item>
+            <NavDropdown.Item href="/regency">Regency</NavDropdown.Item>
+            <NavDropdown.Item href="/district">District</NavDropdown.Item>
+            <NavDropdown.Item href="/village">Village</NavDropdown.Item>
           </NavDropdown>
 
           <Nav.Link href="">Level Category</Nav.Link>

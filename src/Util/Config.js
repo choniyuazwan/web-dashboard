@@ -3,7 +3,8 @@ const config = {
     baseAddress: 'http://api-alpha.law-go.co.id/api',
     login: '/authentication/login',
     country: '/administrative/country',
-    province: '/administrative/province'
+    province: '/administrative/province',
+    regency: '/administrative/regency'
   }
 };
 
