@@ -14,9 +14,11 @@ import {
 import { withRouter } from 'react-router-dom';
 import { url, options } from "../../Util/Api";
 import AlertMessage from "../../Component/AlertMessage";
+import DataTable from '../../Component/DataTable';
 
 function Country(props) {
   const [data, setData] = useState([]);
+  const [dataArray, setDataArray] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const [lastPage, setLastPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +34,20 @@ function Country(props) {
       'keyword': ''
     };
     const result = await axios(apiUrl, options);
-    setData(result.data.data);
+    await setData(result.data.data);
+
+    // await data.map((item, index) => {
+    //   setDataArray([...dataArray, 'coba']);
+    // });
+
+    let obj = {"1":5,"2":7,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0};
+    let hasil = Object.keys(result.data.data[0]).map(function(key) {
+      return [Number(key), obj[key]];
+    });
+    console.log('data', data)
+    console.log('hasil', hasil)
+    console.log(result);
+    console.log('dataArray', dataArray);
     setCurrentPage(1);
     setLastPage(result.data.last_page);
     setTotalData(result.data.total);
@@ -149,6 +164,11 @@ function Country(props) {
           </Pagination>
         </Col>
       </Row>
+
+      <div>
+        <DataTable data={dataArray}/>
+      </div>
+
     </div>
   );
 
