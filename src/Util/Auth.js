@@ -39,7 +39,7 @@ export function LoginRoute({ children, ...rest }) {
           children
         ) : (
           <Redirect to={{
-            pathname: "/",
+            pathname: "/country",
             state: { from: location }
           }}
           />

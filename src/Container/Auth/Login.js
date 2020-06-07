@@ -19,7 +19,7 @@ function Login(props) {
   const login = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    axios.post(apiUrl, data, options)
+    axios(apiUrl, options)
       .then((result) => {
         localStorage.setItem('token', result.data.accessToken);
         setIsLoading(false);

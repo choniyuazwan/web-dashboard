@@ -1,0 +1,158 @@
+{
+  "login": {
+    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDczMzY2YWFkMjRmYjNjNmM3ZjYxNzExNDNiODVmNjhkYTA2NzRkNTI3NTk2MTc2YmZmMmJlMWQwNjU0YzNlNmJjZjQ4OGE3OWI0MTAyM2IiLCJpYXQiOjE1ODI0Mzc5MjcsIm5iZiI6MTU4MjQzNzkyNywiZXhwIjoxNjE0MDYwMzI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.HC2VSLdQwOTzBEr2UNyKi1UW5PxbaaHZ449ORbO0BL9AJ0QeIK9jPDKiJF_6j6O9i_M5rT7KYQYF_ngqKaC1Lc3Gn1sEjryDYJp3mg3MoJWNMUdHMmUKcl5RM2-T0jbQUAeGRS1jcBlW59XnOQW9bJCSibBhrrhNWP8VGuEwnNOolI9AqeJBZbaftQOVSk_aa_v1f05F2hDy7ndZhqkzbvxxS5cDj-vVIgiixXr_Z36lbdlZkoSShZtIV40UVKprlWhEMvBVWHJWFQYzaz8VYV1uHVO0kKPnH64nBz5syihv1c087fV5qGhE3vTZBwNK1-5gqz0oICEgBf06xSp9YHLtE8qCkhrUsmYDzG7TOQIuQhW82ZLzDivo4MHmWOBeMxdzS9XMD7cUYKwMNvB9V4iPzKXByxh_tzyLvnviV2J2OC5tgg07SDr-Rkv2yk1exGhen0jQaUdHdjU2Pv19n__woVzgZx-6T9R4SDzrw1tX8MZUZJx11VWosPqMNFqTEK3B9RG3kbKeoWehEdIOvp3FG5cKtCZ54-6cjmztAivnH6Z8kAOaA-JyatMWKOGwlmDMbVdCyQVe_veEPquAsxfEeeDN_mfqnKUl3m2y7vVYov7nyourUwmCFE2QPRjCmTKBuKZOg7IQZjJgHSPmBjr0HscGgwk7_yaS8OAz_dc",
+    "data": {
+      "id": 1,
+      "userable_id": null,
+      "userable_type": null,
+      "user_role_id": 1,
+      "level_category_id": null,
+      "email": "admin@mail.com",
+      "name": "admin",
+      "is_active": "1",
+      "is_online": "0",
+      "created_at": "2020-02-23 12:58:26",
+      "updated_at": "2020-02-23 12:58:26"
+    }
+  },
+  "country": {
+    "current_page": "1",
+    "data": [
+      {
+        "id": 1,
+        "name": "INDONESIA"
+      },
+      {
+        "id": 2,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 3,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 4,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 5,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 6,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 7,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 8,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 9,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 10,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 11,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 12,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 13,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 14,
+        "name": "COUNTRY NAME"
+      },
+      {
+        "id": 15,
+        "name": "COUNTRY NAME"
+      }
+    ],
+    "first_page_url": "http://api-alpha.law-go.co.id/api/administrative/country?page=1",
+    "from": 1,
+    "last_page": 2,
+    "last_page_url": "http://api-alpha.law-go.co.id/api/administrative/country?page=2",
+    "next_page_url": "http://api-alpha.law-go.co.id/api/administrative/country?page=2",
+    "path": "http://api-alpha.law-go.co.id/api/administrative/country",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 15,
+    "total": 19
+  },
+  "province": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "country_id": 1,
+        "name": "PROVINCE 1 OF INDONESIA",
+        "is_active": "0",
+        "country": {
+          "id": 1,
+          "name": "INDONESIA"
+        }
+      },
+      {
+        "id": 2,
+        "country_id": 1,
+        "name": "PROVINCE 2 OF INDONESIA",
+        "is_active": "0",
+        "country": {
+          "id": 1,
+          "name": "INDONESIA"
+        }
+      },
+      {
+        "id": 3,
+        "country_id": 1,
+        "name": "PROVINCE 3 OF INDONESIA",
+        "is_active": "0",
+        "country": {
+          "id": 1,
+          "name": "INDONESIA"
+        }
+      },
+      {
+        "id": 4,
+        "country_id": 1,
+        "name": "PROVINCE 4 OF INDONESIA",
+        "is_active": "0",
+        "country": {
+          "id": 1,
+          "name": "INDONESIA"
+        }
+      },
+      {
+        "id": 5,
+        "country_id": 1,
+        "name": "PROVINCE 5 OF INDONESIA",
+        "is_active": "0",
+        "country": {
+          "id": 1,
+          "name": "INDONESIA"
+        }
+      }
+    ],
+    "first_page_url": "http://api-alpha.law-go.co.id/api/administrative/province?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http://api-alpha.law-go.co.id/api/administrative/province?page=1",
+    "next_page_url": null,
+    "path": "http://api-alpha.law-go.co.id/api/administrative/province",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 5,
+    "total": 5
+  }
+}

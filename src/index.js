@@ -24,7 +24,7 @@ const routes = [
   '/',
   '/country',
   '/province',
-  '/regency'
+  // '/regency'
 ];
 
 ReactDOM.render(
